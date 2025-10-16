@@ -118,27 +118,27 @@ public: //What everything can see regardless of being a class member or not
         delete temp; //Deletes temp and effectively the node at that position by cutting it out.
     } //End of function
 
-    void push_back(int v) {
-        Node* newNode = new Node(v);
-        if (!tail)
-            head = tail = newNode;
-        else {
-            tail->next = newNode;
-            newNode->prev = tail;
-            tail = newNode;
-        }
-    }
+    void push_back(int v) { //Function for putting an element at the end of the list
+        Node* newNode = new Node(v); //Makes a new node with the value v (shortened from value to v)
+        if (!tail)//If tail isn't null
+            head = tail = newNode; //Set head to tail to newNode since there's only one thing.
+        else { //Else
+            tail->next = newNode; //Sets the current tail's next to equal new node
+            newNode->prev = tail; //set the newnode's previous to the old tail
+            tail = newNode; //Sets tail to equal newNode. Feels like it needs to also now point to Nullptr, but I suppose its handled somewhere else.
+        } //End of Else
+    } //End of function.
     
-    void push_front(int v) {
-        Node* newNode = new Node(v);
-        if (!head)
-            head = tail = newNode;
-        else {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
-        }
-    }
+    void push_front(int v) { //Function for puting an element at the front of the list.
+        Node* newNode = new Node(v); //Creates a new node with value v
+        if (!head) //If head is null
+            head = tail = newNode; //Set head to tail to newNode.
+        else { // Else.
+            newNode->next = head; //Set newNode's next to head
+            head->prev = newNode; //Set head's previous to newNode
+            head = newNode; //Set head to equal newNode
+        } //End of else
+    } //End of function
     
     void pop_front() {
 
