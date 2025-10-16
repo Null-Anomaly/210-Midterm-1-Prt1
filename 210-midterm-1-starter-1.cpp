@@ -41,41 +41,42 @@ public: //What everything can see regardless of being a class member or not
 
         if (!temp) {//If temp is null
             cout << "Position exceeds list size. Node not inserted.\n";//prints error message
-            delete newNode; //Clean up. Prevents memory leaks
+            delete newNode; //Clean up. Prevents memory leaks at end of function
             return;//Returns the function
         }
 
         newNode->next = temp->next; //If valid, it allows the new node to actually exist.
-                                    //
-        newNode->prev = temp;
-        if (temp->next)
-            temp->next->prev = newNode;
-        else
-            tail = newNode;
-        temp->next = newNode;
-    }
+                                    //It sets that new node to properly point to the intended next node.
+        newNode->prev = temp; //Sets the new node to point to the previous node which is temp
+        if (temp->next) //If temp's next is not null
+            temp->next->prev = newNode; //Has temp's next's previous point instead point to the new node.
+        else //If null.
+            tail = newNode; //Sets tail to the new node
+        temp->next = newNode; //Has temp's next point to the new node since the position stated is for inserting afterwards
+    }//Closes out the function
 
-    void delete_val(int value) {
-        if (!head) return;
+    void delete_val(int value) { //Function for deleting a specific value
+        if (!head) return; //If list is empty retun.
 
-        Node* temp = head;
+        Node* temp = head; //Sets temp node to point at the same node head is pointing at.
         
-        while (temp && temp->data != value)
-            temp = temp->next;
+        while (temp && temp->data != value)//While temp isn't null and the the data of temp isn't equal to the value loop
+            temp = temp->next; //Set temp to point to the next node
 
-        if (!temp) return; 
+        if (!temp) return; //Is temp points to nothing, return.
 
-        if (temp->prev)
-            temp->prev->next = temp->next;
-        else
-            head = temp->next; 
+        if (temp->prev) //If temp's previous isn't null do thing
+            temp->prev->next = temp->next;//Thing being putting temp's previous's next to point to temp next instead
+            //(Which is the same one that temp is also pointing to by the way)
+        else//Else
+            head = temp->next; //Head is equal to temp's next (Assuming temp's previous is null)
 
-        if (temp->next)
-            temp->next->prev = temp->prev;
-        else
-            tail = temp->prev; 
+        if (temp->next)//If temp's next is true
+            temp->next->prev = temp->prev; //Set temp's next's previous to point to temp's previous
+        else//Else
+            tail = temp->prev; //Set tail to temp's previous.
 
-        delete temp;
+        delete temp; //Delete temp after it has successfully disconnected itself and the node from the list.
     }
 
     void delete_pos(int pos) {
