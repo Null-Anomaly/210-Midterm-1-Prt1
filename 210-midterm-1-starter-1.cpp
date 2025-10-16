@@ -211,7 +211,7 @@ public: //What everything can see regardless of being a class member or not
     } //End the reverse print
 
     //My member function version.
-    void every_other_element()
+    void every_other_element() //Prints out every other element
     {
         Node* current = head;  
         if (!current) { 
@@ -220,6 +220,10 @@ public: //What everything can see regardless of being a class member or not
         } 
         while (current) {
             cout << current->data << " ";
+            if (!current->next) //Checks if the next element is null
+            {
+                    break; //Break out of the while if the next element is null.
+            } 
             current = current->next->next; 
         } 
         cout << endl; 
@@ -228,8 +232,16 @@ public: //What everything can see regardless of being a class member or not
 }; //End of class
 
 int main() { //Main function
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning. Neat
+    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS << "\n";  // dummy statement to avoid compiler warning. Neat
+    DoublyLinkedList test;
 
+    test.push_back(2);
+    test.push_back(3);
+    test.push_back(4);
+    test.push_back(5);
+    test.push_back(6);
+
+    test.every_other_element(); //Test!
     
     return 0; //End program with 0
 } //End of function.
