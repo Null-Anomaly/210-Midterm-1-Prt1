@@ -1,3 +1,6 @@
+/*Comsc 210 | Midterm 1 Prt 1 | Lawrence Bryant
+IDE used: Visual Studio Code*/
+
 #include <iostream> //For input and output hence io
 using namespace std;//Usting a c++ standard 
 
@@ -14,8 +17,8 @@ private://Determines which items are private
             data = val; //Sets data to val
             prev = p; //Sets prev to p
             next = n; //Sets next to n
-        }
-    };
+        } //close constructor
+    }; //Closes the struct.
 
     Node* head; //Variable pointer for pointing to the head/first element in the list
     Node* tail;//Variable pointer for pointing to the tail/last element in the list
@@ -27,13 +30,13 @@ public: //What everything can see regardless of being a class member or not
         if (position < 0) { //Validification
             cout << "Position must be >= 0." << endl; //Prints the error
             return; //Returns the function
-        }
+        } //close if
 
         Node* newNode = new Node(value); //Creates a new node object with value variable
         if (!head) { //Checks if list is empty
             head = tail = newNode; //If true, set head and tail to newNode
-            return;
-        }
+            return; //Returns function
+        } //Close if
 
         Node* temp = head; //If it's not, creates and sets the node temp to point to head
         for (int i = 0; i < position && temp; ++i) //Loops until it reaches position int and isn't Null
@@ -140,54 +143,54 @@ public: //What everything can see regardless of being a class member or not
         } //End of else
     } //End of function
     
-    void pop_front() {
+    void pop_front() { //Function for popping the first element out of the list
 
-        if (!head) {
-            cout << "List is empty." << endl;
-            return;
-        }
+        if (!head) { //If head is null
+            cout << "List is empty." << endl; //Error output
+            return; //Return function
+        } //Close if
 
-        Node * temp = head;
+        Node * temp = head; //Sets temp to point to head as well
 
-        if (head->next) {
-            head = head->next;
-            head->prev = nullptr;
-        }
-        else
-            head = tail = nullptr;
-        delete temp;
-    }
+        if (head->next) { //If head next exists
+            head = head->next; //Head is now head next
+            head->prev = nullptr; //Head previous is now NULL. 
+        } //Close if
+        else //Else
+            head = tail = nullptr; //Head's next was null, so head is tail is null
+        delete temp; //Delete temp since it was the old head.
+    } //Close function out
 
-    void pop_back() {
-        if (!tail) {
-            cout << "List is empty." << endl;
-            return;
-        }
-        Node * temp = tail;
+    void pop_back() { //Pop the back out of existence. 
+        if (!tail) {  //If tail is null
+            cout << "List is empty." << endl; //Prints out the list being empty
+            return; //Return the function.
+        } //Close if.
+        Node * temp = tail; //As it did for the head, sets temp to tail
 
-        if (tail->prev) {
-            tail = tail->prev;
-            tail->next = nullptr;
-        }
-        else
-            head = tail = nullptr;
-        delete temp;
-    }
+        if (tail->prev) { //If tail's previous exists
+            tail = tail->prev; //Tail is now its previous point
+            tail->next = nullptr; //Has the tail's new next point to NULL
+        } //Closes the if
+        else //Else.
+            head = tail = nullptr; //Head is tail is null
+        delete temp; //Delete the temp which was tail to be deleted
+    }//Close out function
 
-    ~DoublyLinkedList() {
-        while (head) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
-        }
-    }
-    void print() {
-        Node* current = head;
-        if (!current) {
-            cout << "List is empty." << endl;
-            return;
-        }
-        while (current) {
+    ~DoublyLinkedList() { //Deconstructor
+        while (head) { //While the list exists
+            Node* temp = head; //Sets temp to head
+            head = head->next; //Head is equal to the head's next
+            delete temp; //Delete temp
+        } //No more list. End while loop
+    } //End function
+    void print() { //Prints the list starting from the head.
+        Node* current = head;  //Sets current to head
+        if (!current) { //If no elements
+            cout << "List is empty." << endl; //Prints out list is empty
+            return; //Return function
+        } //Close if
+        while (current) { //While it points to an element
             cout << current->data << " ";
             current = current->next;
         }
