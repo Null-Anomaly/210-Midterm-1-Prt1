@@ -1,50 +1,52 @@
-#include <iostream>
-using namespace std;
+#include <iostream> //For input and output hence io
+using namespace std;//Usting a c++ standard 
 
-const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
+const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20; //Sets the minimum and maximum
+//values for later random number generation
 
-class DoublyLinkedList {
-private:
-    struct Node {
-        int data;
-        Node* prev;
-        Node* next;
-        Node(int val, Node* p = nullptr, Node* n = nullptr) {
-            data = val; 
-            prev = p;
-            next = n;
+class DoublyLinkedList { //Creates the class DoublyLinkedList
+private://Determines which items are private
+    struct Node {//Creates a struture of type Node
+        int data;//Integer variabe
+        Node* prev;//Variable pointer for pointing to previous node
+        Node* next;//Variable pointer for pointing to next node
+        Node(int val, Node* p = nullptr, Node* n = nullptr) { //Paramaterized constructor
+            data = val; //Sets data to val
+            prev = p; //Sets prev to p
+            next = n; //Sets next to n
         }
     };
 
-    Node* head;
-    Node* tail;
+    Node* head; //Variable pointer for pointing to the head/first element in the list
+    Node* tail;//Variable pointer for pointing to the tail/last element in the list
 
-public:
-    DoublyLinkedList() { head = nullptr; tail = nullptr; }
+public: //What everything can see regardless of being a class member or not
+    DoublyLinkedList() { head = nullptr; tail = nullptr; }//Default constructor
 
-    void insert_after(int value, int position) {
-        if (position < 0) {
-            cout << "Position must be >= 0." << endl;
+    void insert_after(int value, int position) { //Inserts a node after a certain position
+        if (position < 0) { //Validification
+            cout << "Position must be >= 0." << endl; //Prints the error
+            return; //Returns the function
+        }
+
+        Node* newNode = new Node(value); //Creates a new node object with value variable
+        if (!head) { //Checks if list is empty
+            head = tail = newNode; //If true, set head and tail to newNode
             return;
         }
 
-        Node* newNode = new Node(value);
-        if (!head) {
-            head = tail = newNode;
-            return;
+        Node* temp = head; //If it's not, creates and sets the node temp to point to head
+        for (int i = 0; i < position && temp; ++i) //Loops until it reaches position int and isn't Null
+            temp = temp->next;//Sets temp to instead equal the next node from its current pos
+
+        if (!temp) {//If temp is null
+            cout << "Position exceeds list size. Node not inserted.\n";//prints error message
+            delete newNode; //Clean up. Prevents memory leaks
+            return;//Returns the function
         }
 
-        Node* temp = head;
-        for (int i = 0; i < position && temp; ++i)
-            temp = temp->next;
-
-        if (!temp) {
-            cout << "Position exceeds list size. Node not inserted.\n";
-            delete newNode;
-            return;
-        }
-
-        newNode->next = temp->next;
+        newNode->next = temp->next; //If valid, it allows the new node to actually exist.
+                                    //
         newNode->prev = temp;
         if (temp->next)
             temp->next->prev = newNode;
