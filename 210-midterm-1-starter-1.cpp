@@ -191,29 +191,45 @@ public: //What everything can see regardless of being a class member or not
             return; //Return function
         } //Close if
         while (current) { //While it points to an element
-            cout << current->data << " ";
-            current = current->next;
-        }
-        cout << endl;
-    }
+            cout << current->data << " ";//Prints out the data stored in the node. Makes a space
+            current = current->next; //Moves down the list
+        } //Closes the while.
+        cout << endl; //End line
+    } //End print
 
-    void print_reverse() {
-        Node* current = tail;
+    void print_reverse() {// Prints out the list starting from the tail, thus the reverse
+        Node* current = tail; //Current to tail
+        if (!current) {  //If Null
+            cout << "List is empty." << endl; //Prints the list is empty
+            return; //Return function
+        } //Close out if
+        while (current) { //While the current isn't null
+            cout << current->data << " "; //Prints out the data in the element
+            current = current->prev; //Moves to the previous element which is effectively reverse.
+        }//Close while
+        cout << endl; //End line
+    } //End the reverse print
+
+    //My member function version.
+    void every_other_element()
+    {
+        Node* current = head;  
         if (!current) { 
-            cout << "List is empty." << endl;
-            return;
-        }
+            cout << "List is empty." << endl; 
+            return; 
+        } 
         while (current) {
             cout << current->data << " ";
-            current = current->prev;
-        }
-        cout << endl;
+            current = current->next->next; 
+        } 
+        cout << endl; 
     }
-};
 
-int main() {
-    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning
+}; //End of class
+
+int main() { //Main function
+    cout << MIN_NR + MIN_LS + MAX_NR + MAX_LS;  // dummy statement to avoid compiler warning. Neat
 
     
-    return 0;
-}
+    return 0; //End program with 0
+} //End of function.
