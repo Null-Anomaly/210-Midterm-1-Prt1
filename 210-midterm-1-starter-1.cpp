@@ -77,44 +77,46 @@ public: //What everything can see regardless of being a class member or not
             tail = temp->prev; //Set tail to temp's previous.
 
         delete temp; //Delete temp after it has successfully disconnected itself and the node from the list.
-    }
+        //The node which it now effectively is.
+    }//Close out function
 
-    void delete_pos(int pos) {
-        if (!head) {
-            cout << "List is empty." << endl;
-            return;
-        }
+    void delete_pos(int pos) { //Selects a position and deletes the node 
+        if (!head) { //Checks if the list exists
+            cout << "List is empty." << endl; //Error message
+            return; //Returns function
+        } //Close if
     
-        if (pos == 1) {
-            pop_front();
-            return;
-        }
+        if (pos == 1) { //If position is equal to one
+            pop_front(); //Calls the pop front function
+            return; //Returns function
+        } //Closes the if statement
     
-        Node* temp = head;
+        Node* temp = head; //Sets temp to point to head
     
-        for (int i = 1; i < pos; i++){
-            if (!temp) {
-                cout << "Position doesn't exist." << endl;
-                return;
-            }
-            else
-                temp = temp->next;
-        }
-        if (!temp) {
-            cout << "Position doesn't exist." << endl;
-            return;
-        }
+        for (int i = 1; i < pos; i++){ //For int i is less tha- why does i start at 1? Whatever
+            //For int i = 1, if i is less than pos, i += 1
+            if (!temp) { //If temp isn't null
+                cout << "Position doesn't exist." << endl; //Error
+                return; //Return function
+            } //Close if
+            else //Else
+                temp = temp->next; //Temp is now equal to temp's next like in line 40
+        } //Close if
+        if (!temp) {//If temp is equal to NULL
+            cout << "Position doesn't exist." << endl; // Error print
+            return; //Returns function
+        } //Close if
     
-        if (!temp->next) {
-            pop_back();
-            return;
-        }
+        if (!temp->next) { //If temp's next is null
+            pop_back(); //Call the popback function to remove that tail
+            return; //Returns function
+        } //Closes if
     
-        Node* tempPrev = temp->prev;
-        tempPrev->next = temp->next;
-        temp->next->prev = tempPrev;
-        delete temp;
-    }
+        Node* tempPrev = temp->prev; //sets the new node tempPrev to temp's previous node
+        tempPrev->next = temp->next; //Sets themprev's next to temp's next
+        temp->next->prev = tempPrev; //Set temp's next's previous to tempPrev
+        delete temp; //Deletes temp and effectively the node at that position by cutting it out.
+    } //End of function
 
     void push_back(int v) {
         Node* newNode = new Node(v);
